@@ -1,0 +1,9 @@
+Completions web services
+====================
+
+Because sometimes you want to be able to pass in multiple users, or multiple courses, and get back results as a set.
+
+To test:
+1. install the plugin in moodle/local/wsca/
+2. enable rest, create a token for the user
+3. Read, setup and run moodle/local/wsca/client/client.php
