@@ -1,9 +1,14 @@
-Completions web services
-====================
+#WSCA
 
-Because sometimes you want to be able to pass in multiple users, or multiple courses, and get back results as a set.
+Moodle 3 web services for looking at course completions
 
-To test:
-1. install the plugin in moodle/local/wsca/
-2. enable rest, create a token for the user
-3. Read, setup and run moodle/local/wsca/client/client.php
+Services:
+local_wsca_helloworld - a helloworld for testing
+local_wsca_completioncron - RUNS the completions cron task (for all users/courses)
+local_wsca_coursescompletions - Return completion records for one or more courses
+local_wsca_userscompletions - Return completion records for one or more users
+local_wsca_manualenrolment - Enrol a user in a course using the manual enrolment method, create a course completion record
+
+License
+=======
+GPL2 - same as moodle
