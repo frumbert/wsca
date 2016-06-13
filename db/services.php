@@ -35,6 +35,14 @@ $functions = array(
                 'classpath' => 'local/wsca/externallib.php',
                 'description' => 'Enrol a user in a course using the manual enrolment method',
                 'type' => 'write',
+        ),
+
+        'local_wsca_enroller' => array (
+                'classname' => 'local_wsca_external',
+                'methodname' => 'enroller',
+                'classpath' => 'local/wsca/externallib.php',
+                'description' => 'Create a user (or use existing) and enrol them for each course id supplied, hand back the new user ids',
+                'type' => 'write',
         )
 );
 
@@ -62,6 +70,12 @@ $services = array(
         ),
         'Enrol a user in a course using manual enrolment' => array(
                 'functions' => array ('local_wsca_manualenrolment'),
+                'restrictedusers' => 0,
+                'enabled'=>1,
+        ),
+
+        'Create a user (or use existing) and enrol them for each course id supplied, hand back the new user ids' => array(
+                'functions' => array ('local_wsca_enroller'),
                 'restrictedusers' => 0,
                 'enabled'=>1,
         )
