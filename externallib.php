@@ -434,7 +434,7 @@ enrolments: {
             \core\event\user_created::create_from_userid($id)->trigger();
             return $id;
             */
-    }
+//    }
 
    /* private function enroller_perform_enrolment($courseid, $userid) {
         global $DB;
