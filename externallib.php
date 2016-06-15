@@ -293,7 +293,11 @@ enrolments: {
             $firstname = $entry["firstname"];
             $lastname = $entry["lastname"];
             $email = $entry["email"];
-            $username = $firstname[0] . $lastname[0] . hash("crc32b", time()); // username is not used, but must be unique
+            $find_existing = (isset($entry["existing"]) && (bool)   $entry["existing"] == "true"); // if true find and return existing user ids, otherwise always create new users
+            $username = $firstname[0] . $lastname[0] . hash("crc32b", time()); // username is not used
+            while ($DB->record_exists('user', array('username'=>$username))) { // but must be unique
+                $username = $firstname[0] . $lastname[0] . hash("crc32b", time() + rand()); // add a bit of randomness
+            }
             foreach ($entry["course"] as &$course) { // byref
                 if (!$DB->record_exists('course', array('id'=>$course["id"]))) {
                     $course["status"] = 404; // not found
@@ -307,13 +311,15 @@ enrolments: {
                         '*',
                         MUST_EXIST
                     );
-                    // does a user belong to an existing enrolment instance?
-                    $sql = "SELECT userid FROM {user_enrolments} WHERE enrolid=:enrolid AND userid IN (SELECT id FROM {user} WHERE idnumber = :id)";
-                    $params = array(
-                        "enrolid" => $enrolinstance->id,
-                        "id" => $id
-                    );
-                    $lmsid = $DB->get_field_sql($sql, $params); // ,IGNORE_MULTIPLE
+                    $lmsid = 0;
+                    if ($find_existing) { // does a user belong to an existing enrolment instance?
+                        $sql = "SELECT userid FROM {user_enrolments} WHERE enrolid=:enrolid AND userid IN (SELECT id FROM {user} WHERE idnumber = :id)";
+                        $params = array(
+                            "enrolid" => $enrolinstance->id,
+                            "id" => $id
+                        );
+                        $lmsid = $DB->get_field_sql($sql, $params); // ,IGNORE_MULTIPLE
+                    }
                     // $course["query"] = str_replace(":enrolid", $enrolinstance->id, str_replace(":id", $id, $sql));
                     if ($lmsid > 0) {
                         $course["status"] = 302; // found
