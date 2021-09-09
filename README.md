@@ -1,4 +1,4 @@
-#WSCA
+# WSCA
 
 Moodle 3 web services for looking at course completions
 
@@ -22,6 +22,5 @@ Result:
     {"enrolments":{"enrol":[{"id":59001,"firstname":"gavin","lastname":"element","email":"gavin.element@spoopy.co","course":[{"id":12,"status":201,"lmsid":"214"},{"id":13,"status":201,"lmsid":"215"},{"id":9,"status":201,"lmsid":"216"},{"id":6,"status":201,"lmsid":"217"},{"id":38,"status":201,"lmsid":"218"}]}],"unenrol":[{"id":59001,"course":[{"id":39,"status":404}]}]}}
 
 
-License
-=======
+## License
 GPL2 - same as moodle
